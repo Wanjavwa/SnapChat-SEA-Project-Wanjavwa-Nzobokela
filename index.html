@@ -1,217 +1,135 @@
-<!doctype html>
-<html>
-  <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <title>Spirits of the Continent | African Mythology Catalogue</title>
-    <meta name="description" content="A catalogue of African mythological figures and deities from across the continent" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hero — Spirits of the Continent</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:wght@300;400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
 
-  <body>
-    <!-- HEADER WITH VIDEO BACKGROUND -->
-    <header class="main-header" id="home">
-      <!-- Video Background -->
-      <video class="header-video-bg" autoplay muted loop playsinline>
-        <source src="assets/index background video.mp4" type="video/mp4">
-      </video>
-      <!-- Overlay for consistent styling -->
-      <div class="header-overlay"></div>
-      
-      <!-- Navigation -->
-      <nav class="header-nav">
-        <a href="hero.html" class="nav-link">Home</a>
-      </nav>
-      
-      <h1 class="title">Spirits of the Continent</h1>
-    </header>
+  <section class="hero-wrap">
 
-    <!-- CATALOGUE SECTION -->
-    <main class="catalogue-section" id="catalogue">
-      
-      <!-- SEARCH & FILTER PANEL -->
-      <div class="filter-panel">
-        
-        <!-- SEARCH BAR -->
-        <div class="search-container">
-          <input 
-            type="text" 
-            id="search-input" 
-            class="search-input" 
-            placeholder="Search by name, country, tribe, or description..."
-          >
-        </div>
+    <!-- Video Background -->
+    <video class="hero-video-bg" autoplay muted loop playsinline>
+      <source src="assets/background video.mp4" type="video/mp4">
+    </video>
 
-        <!-- FILTER CONTROLS -->
-        <div class="filter-controls">
-          
-          <!-- TYPE FILTERS -->
-          <div class="filter-group">
-            <h3 class="filter-label">Filter by Type</h3>
-            <div class="pills-container">
-              <button class="type-pill" data-type="Deity">Deity</button>
-              <button class="type-pill" data-type="Spirit">Spirit</button>
-              <button class="type-pill" data-type="Trickster">Trickster</button>
-              <button class="type-pill" data-type="Monster">Monster</button>
-              <button class="type-pill" data-type="Ancestor">Ancestor</button>
-            </div>
-          </div>
+    <!-- Background overlays for consistent styling -->
+    <div class="bg-wash"></div>
+    <div class="bg-abstract"></div>
+    <div class="bg-abstract2"></div>
 
-          <!-- REGION FILTERS -->
-          <div class="filter-group">
-            <h3 class="filter-label">Filter by Region</h3>
-            <div class="pills-container">
-              <button class="region-pill" data-region="West Africa">West Africa</button>
-              <button class="region-pill" data-region="East Africa">East Africa</button>
-              <button class="region-pill" data-region="Central Africa">Central Africa</button>
-              <button class="region-pill" data-region="Southern Africa">Southern Africa</button>
-            </div>
-          </div>
+    <!-- Adinkra watermark SVG -->
+    <svg class="bg-adinkra" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="150" cy="150" r="138" stroke="#c9a84c" stroke-width="0.8"/>
+      <circle cx="150" cy="150" r="108" stroke="#c9a84c" stroke-width="0.5"/>
+      <circle cx="150" cy="150" r="78"  stroke="#c9a84c" stroke-width="0.5"/>
+      <circle cx="150" cy="150" r="48"  stroke="#c9a84c" stroke-width="0.5"/>
+      <circle cx="150" cy="150" r="18"  fill="#c9a84c" opacity="0.3"/>
+      <line x1="12"  y1="150" x2="288" y2="150" stroke="#c9a84c" stroke-width="0.4"/>
+      <line x1="150" y1="12"  x2="150" y2="288" stroke="#c9a84c" stroke-width="0.4"/>
+      <line x1="52"  y1="52"  x2="248" y2="248" stroke="#c9a84c" stroke-width="0.3"/>
+      <line x1="248" y1="52"  x2="52"  y2="248" stroke="#c9a84c" stroke-width="0.3"/>
+      <path d="M150 42 Q192 82 192 150 Q192 218 150 258 Q108 218 108 150 Q108 82 150 42Z" stroke="#c9a84c" stroke-width="0.6" fill="none"/>
+    </svg>
 
-          <!-- DROPDOWNS ROW -->
-          <div class="filter-row">
-            <!-- COUNTRY DROPDOWN -->
-            <div class="filter-group">
-              <label for="country-filter" class="filter-label">Filter by Country</label>
-              <select id="country-filter" class="filter-select">
-                <option value="">All Countries</option>
-              </select>
-            </div>
+    <div class="bg-vignette"></div>
+    <div class="bg-vignette2"></div>
+    <div class="bg-grid"></div>
 
-            <!-- TRIBE DROPDOWN -->
-            <div class="filter-group">
-              <label for="tribe-filter" class="filter-label">Filter by Tribe</label>
-              <select id="tribe-filter" class="filter-select">
-                <option value="">All Tribes</option>
-              </select>
-            </div>
+    <!-- Nav -->
+    <nav class="hero-nav">
+      <div class="nav-logo">Spirits of the Continent</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hero.html">Catalogue</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
 
-            <!-- SORT DROPDOWN -->
-            <div class="filter-group">
-              <label for="sort-select" class="filter-label">Sort By</label>
-              <select id="sort-select" class="filter-select">
-                <option value="a-z">A – Z</option>
-                <option value="z-a">Z – A</option>
-                <option value="region">By Region</option>
-                <option value="type">By Type</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- SECOND ROW: FAVORITES & RESET -->
-          <div class="filter-row">
-            <!-- FAVORITES BUTTON -->
-            <div class="filter-group">
-              <button id="favorites-btn" class="btn-favorites">
-                <span class="favorites-icon">★</span> View Favorites
-                <span id="favorites-count" class="favorites-count">0</span>
-              </button>
-            </div>
-
-            <!-- RESET BUTTON -->
-            <div class="filter-group">
-              <button id="reset-btn" class="btn-reset">Reset All</button>
-            </div>
-          </div>
-        </div>
+    <!-- Main content -->
+    <div class="hero-content">
+      <div class="hero-tag">
+        <div class="hero-tag-line"></div>
+        <span>A digital museum &nbsp;·&nbsp; Sub-Saharan Africa</span>
       </div>
 
-      <!-- MYTHS GRID -->
-      <div id="myths-grid" class="myths-grid">
-        <!-- Cards rendered by JavaScript -->
+      <h1 class="hero-title">
+        Spirits of the
+        <em>Continent</em>
+      </h1>
+
+      <div class="hero-divider">
+        <div class="divider-dot"></div>
+        <div class="divider-line"></div>
+        <div class="divider-dot"></div>
       </div>
-    </main>
 
-    <!-- ADD DEITY SECTION -->
-    <section class="add-deity-section">
-      <div class="add-deity-container">
-        <h2 class="section-title">Contribute to the Archive</h2>
-        <p class="section-subtitle">Add a new deity, spirit, or figure to our collection</p>
-        
-        <form id="add-deity-form" class="deity-form">
-          <div class="form-group">
-            <label for="deity-name">Name *</label>
-            <input type="text" id="deity-name" required>
-          </div>
+      <p class="hero-subtitle">Sub-Saharan Mythology Catalogue</p>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="deity-type">Type *</label>
-              <select id="deity-type" required>
-                <option value="">Select Type</option>
-                <option value="Deity">Deity</option>
-                <option value="Spirit">Spirit</option>
-                <option value="Trickster">Trickster</option>
-                <option value="Monster">Monster</option>
-                <option value="Ancestor">Ancestor</option>
-              </select>
-            </div>
+      <p class="hero-desc">
+        Preserving the deities, tricksters, and mythic beings woven into the fabric of Sub-Saharan African cultures, from the Yoruba pantheon of Nigeria to the ancestral spirits of the Zulu.
+      </p>
 
-            <div class="form-group">
-              <label for="deity-country">Country *</label>
-              <input type="text" id="deity-country" required>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="deity-region">Region *</label>
-              <select id="deity-region" required>
-                <option value="">Select Region</option>
-                <option value="West Africa">West Africa</option>
-                <option value="East Africa">East Africa</option>
-                <option value="Central Africa">Central Africa</option>
-                <option value="Southern Africa">Southern Africa</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="deity-tribe">Tribe</label>
-              <input type="text" id="deity-tribe">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="deity-image">Image</label>
-            <input type="file" id="deity-image" accept="image/*">
-          </div>
-
-          <div class="form-group">
-            <label for="deity-description">Description *</label>
-            <textarea id="deity-description" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="deity-lore">Extended Lore</label>
-            <textarea id="deity-lore"></textarea>
-          </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn-submit">Add to Archive</button>
-            <button type="button" id="clear-form-btn" class="btn-clear">Clear Form</button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- DETAIL MODAL -->
-    <div id="detail-modal" class="modal">
-      <!-- Content rendered by JavaScript -->
-    </div>
-
-    <!-- EDIT MODAL -->
-    <div id="edit-modal" class="modal">
-      <div class="modal-content">
-        <button class="modal-close">&times;</button>
-        <div class="modal-body">
-          <form id="edit-deity-form" class="deity-form">
-            <!-- Form content rendered by JavaScript -->
-          </form>
-        </div>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="window.location.href='hero.html'">
+          Enter the Catalogue
+        </button>
+        <button class="btn-ghost" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">About this Project</button>
       </div>
     </div>
 
-    <script type="text/javascript" src="scripts.js"></script>
-  </body>
+    <!-- Scroll indicator -->
+    <div class="hero-scroll">
+      <div class="scroll-track"></div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="hero-bar">
+      <div class="bar-item">
+        <div class="bar-num" id="stat-total">40</div>
+        <div class="bar-label">Entities</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-num">18</div>
+        <div class="bar-label">Countries</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-num">Almost 30</div>
+        <div class="bar-label">Tribes</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-num">4</div>
+        <div class="bar-label">Regions</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ABOUT SECTION (Separate from hero, black background) -->
+  <section class="about-section-dark" id="about">
+    <div class="about-container">
+      <h2 class="about-title-dark">About This Project</h2>
+      <p class="about-text-dark">
+        <strong>Spirits of the Continent</strong> is a digital museum dedicated to preserving and celebrating 
+        the rich mythology of Sub-Saharan Africa. This catalogue features deities, spirits, tricksters, 
+        and legendary beings from across the continent, from the Yoruba pantheon of Nigeria to the 
+        ancestral spirits of the Zulu.
+      </p>
+      <p class="about-text-dark">
+        Our mission is to make African mythology accessible to everyone, honoring the oral traditions 
+        and cultural heritage that have been passed down through generations. Each entry in this 
+        catalogue represents a window into the spiritual beliefs and values of African communities.
+      </p>
+      <p class="about-text-dark">
+        Browse through our collection, learn about different cultures, and discover the fascinating 
+        beings that have shaped the spiritual landscape of Africa for centuries.
+      </p>
+      <a href="hero.html" class="about-cta-button">Explore the Catalogue →</a>
+    </div>
+  </section>
+
+</body>
 </html>
