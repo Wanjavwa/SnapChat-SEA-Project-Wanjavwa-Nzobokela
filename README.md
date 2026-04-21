@@ -138,3 +138,50 @@ If you really want to use data from an API, **save it to a file** (like `.json` 
 ---
 
 > 💬 **Have any questions?** Drop them on the [Padlet here](https://padlet.com/arlenschallenge/2026-snap-engineering-academy-stage-2-project-assessment-que-9oux20x1z3g8lyyd) and we'll get back to you!
+
+---
+
+## 🌍 About This Project
+
+This project is a digital catalog dedicated to African Mythology, showcasing deities, spirits, tricksters, and legendary creatures from across the African continent. The website serves as a digital museum, preserving and sharing the rich oral traditions and cultural heritage of various African communities.
+
+### Features Implemented
+
+The catalog includes the following functionality:
+
+- **Data Display**: A comprehensive collection of 40 mythology entries, each containing detailed information including name, type (Deity, Spirit, Trickster, Monster, Ancestor), country, region, tribe, description, and extended lore.
+
+- **Filtering System**: Users can filter entries by:
+  - Type (Deity, Spirit, Trickster, Monster, Ancestor)
+  - Region (West Africa, East Africa, Central Africa, Southern Africa)
+  - Country
+  - Tribe
+
+- **Search Functionality**: A real-time search feature that allows users to find entries by name.
+
+- **Sorting**: Options to sort entries alphabetically (A-Z and Z-A).
+
+- **Favorites**: Users can save their favorite entries to a favorites list for quick access.
+
+- **Add New Entries**: A "Contribute to the Archive" feature that allows users to add new mythology entries, including uploading images from their device.
+
+- **Edit & Remove**: Ability to edit existing entries or remove them from the catalog.
+
+- **Detailed View**: Each entry can be clicked to view full details including extended lore.
+
+### Technical Implementation
+
+- **Vanilla HTML, CSS, and JavaScript**: Built entirely without frameworks, demonstrating understanding of core web technologies.
+- **Data Structures**: Uses JavaScript arrays and objects to store and manage the mythology data.
+- **DOM Manipulation**: Dynamic rendering of catalog entries using JavaScript.
+- **File Handling**: Image upload functionality using the FileReader API to handle local image files.
+
+---
+
+## 🌐 Website
+
+<!-- Add your published website URL here -->
+
+[Click here to view the live website](#)
+
+---
