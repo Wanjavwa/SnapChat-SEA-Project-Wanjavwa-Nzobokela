@@ -457,8 +457,6 @@ const mythsArray = [
     lore: "Yorugu is the guardian spirit of the forests in Amhara tradition, protecting the trees and creatures within. This spirit is honored through rituals performed at sacred groves and forest shrines. Hunters and woodcutters seek Yorugu's permission before taking from the forest, offering prayers to maintain balance with nature."
   }
 ];
-
-
 // This next section of code "currentFilters" is an object that keeps track of all active filters
 // It allows for my websiteto easily manage and apply multiple filters simultaneously when rendering the myths catalogue
 // and also allows for easy resetting of filters when the user clicks the reset button
@@ -476,6 +474,73 @@ let currentFilters = {
   country: "",
   sort: "a-z",
   showFavorites: false
+}
+// ===== FILTER AND SORT LOGIC =====
+// DATA OPERATION — FILTERING + SORTING
+// This is the core data function of the catalogue. It takes mythsArray and
+// applies every active filter from currentFilters in sequence using .filter().
+// Each condition acts as a gate: if a myth fails any check, it is excluded.
+// After filtering, the surviving array is sorted in place using .sort() with
+// different comparison functions based on the chosen sort order. The final
+// filtered and sorted array is then returned for rendering.
+function getFilteredAndSortedMyths() {
+  let filtered = mythsArray.filter(myth => {
+    // Search filter
+    if (currentFilters.search) {
+      const query = currentFilters.search.toLowerCase();
+      const matchesSearch = 
+        myth.name.toLowerCase().includes(query) ||
+        myth.country.toLowerCase().includes(query) ||
+        myth.tribe.toLowerCase().includes(query) ||
+        myth.description.toLowerCase().includes(query);
+      if (!matchesSearch) return false;
+    }
+
+    // Type filter
+    if (currentFilters.types.length > 0) {
+      if (!currentFilters.types.includes(myth.type)) return false;
+    }
+
+    // Region filter
+    if (currentFilters.regions.length > 0) {
+      if (!currentFilters.regions.includes(myth.region)) return false;
+    }
+
+    // Tribe filter
+    if (currentFilters.tribe) {
+      if (myth.tribe !== currentFilters.tribe) return false;
+    }
+
+    // Country filter
+    if (currentFilters.country) {
+      if (myth.country !== currentFilters.country) return false;
+    }
+
+    // Favorites filter - only show items in favorites array
+    if (currentFilters.showFavorites) {
+      if (!favorites.includes(myth.id)) return false;
+    }
+
+    return true;
+  });
+
+  // Sort
+  switch (currentFilters.sort) {
+    case "a-z":
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case "z-a":
+      filtered.sort((a, b) => b.name.localeCompare(a.name));
+      break;
+    case "region":
+      filtered.sort((a, b) => a.region.localeCompare(b.region));
+      break;
+    case "type":
+      filtered.sort((a, b) => a.type.localeCompare(b.type));
+      break;
+  }
+
+  return filtered;
 };
 
 // This next section of code "favorites" is an array that stores the ids of the myths that the user has favorited by clicking the star icon 
@@ -492,39 +557,6 @@ document.addEventListener("DOMContentLoaded", () => {
   updateFavoritesCount();
 });
 
-// ===== POPULATE TRIBE DROPDOWN =====
-// This section of code maps through the mythsArray to extract ever tribe, then uses Set to remove duplicates and filter to remove any empty values
-// then populates the tribe dropdown with the unique tribes found in the dataset
-//the spread operator converts the set back into an array so we can use forEach to create option elements for each tribe and append them to the dropdown
-function populateTribeDropdown() {
-  const tribes = [...new Set(mythsArray.map(m => m.tribe).filter(t => t))];
-  const dropdown = document.getElementById("tribe-filter");
-  dropdown.innerHTML = '<option value="">All Tribes</option>';
-  tribes.forEach(tribe => {
-    const option = document.createElement("option");
-    option.value = tribe;
-    option.textContent = tribe;
-    dropdown.appendChild(option);
-  });
-}
-
-// ===== POPULATE COUNTRY DROPDOWN =====
-// Same as tribes: Extracts unique countries from mythsArray and populates the dropdown
-function populateCountryDropdown() {
-  // Get unique countries from the myths array
-  const countries = [...new Set(mythsArray.map(m => m.country).filter(c => c))];
-  // Sort alphabetically
-  countries.sort();
-  
-  const dropdown = document.getElementById("country-filter");
-  dropdown.innerHTML = '<option value="">All Countries</option>';
-  countries.forEach(country => {
-    const option = document.createElement("option");
-    option.value = country;
-    option.textContent = country;
-    dropdown.appendChild(option);
-  });
-}
 
 // ===== UPDATE FAVORITES COUNT =====
 // Reads the length of the favorites array and updates the count badge.
@@ -674,122 +706,6 @@ function updatePillStates() {
     }
   });
 }
-
-// ===== RESET FILTERS =====
-// DATA OPERATION — RESET STATE OBJECT
-// Resets the currentFilters object to its default state, clears all input fields and dropdowns, resets the favorites button, and re-renders the catalogue to show all entries.
-function resetFilters() {
-  currentFilters = {
-    search: "",
-    types: [],
-    regions: [],
-    tribe: "",
-    country: "",
-    sort: "a-z",
-    showFavorites: false
-  };
-  document.getElementById("search-input").value = "";
-  document.getElementById("tribe-filter").value = "";
-  document.getElementById("country-filter").value = "";
-  document.getElementById("sort-select").value = "a-z";
-  // Reset favorites button
-  document.getElementById("favorites-btn").classList.remove("active");
-  updatePillStates();
-  renderMythsCatalogue();
-}
-
-// ===== FILTER AND SORT LOGIC =====
-// DATA OPERATION — FILTERING + SORTING
-// This is the core data function of the catalogue. It takes mythsArray and
-// applies every active filter from currentFilters in sequence using .filter().
-// Each condition acts as a gate: if a myth fails any check, it is excluded.
-// After filtering, the surviving array is sorted in place using .sort() with
-// different comparison functions based on the chosen sort order. The final
-// filtered and sorted array is then returned for rendering.
-function getFilteredAndSortedMyths() {
-  let filtered = mythsArray.filter(myth => {
-    // Search filter
-    if (currentFilters.search) {
-      const query = currentFilters.search.toLowerCase();
-      const matchesSearch = 
-        myth.name.toLowerCase().includes(query) ||
-        myth.country.toLowerCase().includes(query) ||
-        myth.tribe.toLowerCase().includes(query) ||
-        myth.description.toLowerCase().includes(query);
-      if (!matchesSearch) return false;
-    }
-
-    // Type filter
-    if (currentFilters.types.length > 0) {
-      if (!currentFilters.types.includes(myth.type)) return false;
-    }
-
-    // Region filter
-    if (currentFilters.regions.length > 0) {
-      if (!currentFilters.regions.includes(myth.region)) return false;
-    }
-
-    // Tribe filter
-    if (currentFilters.tribe) {
-      if (myth.tribe !== currentFilters.tribe) return false;
-    }
-
-    // Country filter
-    if (currentFilters.country) {
-      if (myth.country !== currentFilters.country) return false;
-    }
-
-    // Favorites filter - only show items in favorites array
-    if (currentFilters.showFavorites) {
-      if (!favorites.includes(myth.id)) return false;
-    }
-
-    return true;
-  });
-
-  // Sort
-  switch (currentFilters.sort) {
-    case "a-z":
-      filtered.sort((a, b) => a.name.localeCompare(b.name));
-      break;
-    case "z-a":
-      filtered.sort((a, b) => b.name.localeCompare(a.name));
-      break;
-    case "region":
-      filtered.sort((a, b) => a.region.localeCompare(b.region));
-      break;
-    case "type":
-      filtered.sort((a, b) => a.type.localeCompare(b.type));
-      break;
-  }
-
-  return filtered;
-}
-
-// ===== GET TYPE BADGE COLOR =====
-function getTypeColor(type) {
-  const colors = {
-    "Deity": "gold",
-    "Spirit": "teal",
-    "Trickster": "amber",
-    "Monster": "coral",
-    "Ancestor": "purple"
-  };
-  return colors[type] || "gold";
-}
-
-// ===== GET SVG ICON FOR TYPE =====
-function getIconSVG(type) {
-  const icons = {
-    "Deity": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>',
-    "Spirit": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
-    "Trickster": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-5-9h10v2H7z"/></svg>',
-    "Monster": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>',
-    "Ancestor": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'
-  };
-  return icons[type] || icons["Deity"];
-}
-
 // ===== RENDER CATALOGUE =====
 // Reads the filtered/sorted array and builds a card element for each myth,
 // injecting it into the #myths-grid container.
@@ -843,6 +759,86 @@ function renderMythsCatalogue() {
     
     grid.appendChild(card);
   });
+}
+// ===== RESET FILTERS =====
+// DATA OPERATION — RESET STATE OBJECT
+// Resets the currentFilters object to its default state, clears all input fields and dropdowns, resets the favorites button, and re-renders the catalogue to show all entries.
+function resetFilters() {
+  currentFilters = {
+    search: "",
+    types: [],
+    regions: [],
+    tribe: "",
+    country: "",
+    sort: "a-z",
+    showFavorites: false
+  };
+  document.getElementById("search-input").value = "";
+  document.getElementById("tribe-filter").value = "";
+  document.getElementById("country-filter").value = "";
+  document.getElementById("sort-select").value = "a-z";
+  // Reset favorites button
+  document.getElementById("favorites-btn").classList.remove("active");
+  updatePillStates();
+  renderMythsCatalogue();
+}
+
+
+// ===== POPULATE TRIBE DROPDOWN =====
+// This section of code maps through the mythsArray to extract ever tribe, then uses Set to remove duplicates and filter to remove any empty values
+// then populates the tribe dropdown with the unique tribes found in the dataset
+//the spread operator converts the set back into an array so we can use forEach to create option elements for each tribe and append them to the dropdown
+function populateTribeDropdown() {
+  const tribes = [...new Set(mythsArray.map(m => m.tribe).filter(t => t))];
+  const dropdown = document.getElementById("tribe-filter");
+  dropdown.innerHTML = '<option value="">All Tribes</option>';
+  tribes.forEach(tribe => {
+    const option = document.createElement("option");
+    option.value = tribe;
+    option.textContent = tribe;
+    dropdown.appendChild(option);
+  });
+}
+
+// ===== POPULATE COUNTRY DROPDOWN =====
+// Same as tribes: Extracts unique countries from mythsArray and populates the dropdown
+function populateCountryDropdown() {
+  // Get unique countries from the myths array
+  const countries = [...new Set(mythsArray.map(m => m.country).filter(c => c))];
+  // Sort alphabetically
+  countries.sort();
+  
+  const dropdown = document.getElementById("country-filter");
+  dropdown.innerHTML = '<option value="">All Countries</option>';
+  countries.forEach(country => {
+    const option = document.createElement("option");
+    option.value = country;
+    option.textContent = country;
+    dropdown.appendChild(option);
+  });
+}
+// ===== GET TYPE BADGE COLOR =====
+function getTypeColor(type) {
+  const colors = {
+    "Deity": "gold",
+    "Spirit": "teal",
+    "Trickster": "amber",
+    "Monster": "coral",
+    "Ancestor": "purple"
+  };
+  return colors[type] || "gold";
+}
+
+// ===== GET SVG ICON FOR TYPE =====
+function getIconSVG(type) {
+  const icons = {
+    "Deity": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>',
+    "Spirit": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
+    "Trickster": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-5-9h10v2H7z"/></svg>',
+    "Monster": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>',
+    "Ancestor": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'
+  };
+  return icons[type] || icons["Deity"];
 }
 
 // ===== DETAIL MODAL =====
@@ -950,12 +946,6 @@ function openEditModal(id) {
     </div>
 
     <div class="form-group">
-      <label for="edit-image">Image</label>
-      <input type="file" id="edit-image" accept="image/*">
-      <input type="hidden" id="edit-image-current" value="${myth.image}">
-    </div>
-
-    <div class="form-group">
       <label for="edit-description">Description *</label>
       <textarea id="edit-description" required>${myth.description}</textarea>
     </div>
@@ -988,41 +978,25 @@ function handleEditDeity(e) {
   
   const id = parseInt(document.getElementById("edit-id").value);
   const mythIndex = mythsArray.findIndex(m => m.id === id);
+  const myth = mythsArray[mythIndex];
   
   if (mythIndex === -1) return;
 
-  const imageInput = document.getElementById("edit-image");
-  const imageFile = imageInput.files[0];
-  const currentImage = document.getElementById("edit-image-current").value;
-
-  // If a new image file is selected, read it; otherwise keep the current image
-  const handleImage = (imageDataUrl) => {
-    mythsArray[mythIndex] = {
-      id,
-      name: document.getElementById("edit-name").value,
-      type: document.getElementById("edit-type").value,
-      country: document.getElementById("edit-country").value,
-      region: document.getElementById("edit-region").value,
-      tribe: document.getElementById("edit-tribe").value,
-      image: imageDataUrl,
-      description: document.getElementById("edit-description").value,
-      lore: document.getElementById("edit-lore").value
-    };
-
-    document.getElementById("edit-modal").classList.remove("active");
-    document.getElementById("detail-modal").classList.remove("active");
-    renderMythsCatalogue();
+  mythsArray[mythIndex] = {
+    id,
+    name: document.getElementById("edit-name").value,
+    type: document.getElementById("edit-type").value,
+    country: document.getElementById("edit-country").value,
+    region: document.getElementById("edit-region").value,
+    tribe: document.getElementById("edit-tribe").value,
+    image: myth.image,
+    description: document.getElementById("edit-description").value,
+    lore: document.getElementById("edit-lore").value
   };
 
-  if (imageFile) {
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      handleImage(event.target.result);
-    };
-    reader.readAsDataURL(imageFile);
-  } else {
-    handleImage(currentImage);
-  }
+  document.getElementById("edit-modal").classList.remove("active");
+  document.getElementById("detail-modal").classList.remove("active");
+  renderMythsCatalogue();
 }
 
 // ===== REMOVE DEITY =====
@@ -1049,43 +1023,27 @@ function removeDeity(id) {
 function handleAddDeity(e) {
   e.preventDefault();
 
-  const imageInput = document.getElementById("deity-image");
-  const imageFile = imageInput.files[0];
-
-  // If an image file is selected, read it as a data URL
-  const handleImage = (imageDataUrl) => {
-    const newId = Math.max(...mythsArray.map(m => m.id), 0) + 1;
-    const newMyth = {
-      id: newId,
-      name: document.getElementById("deity-name").value,
-      type: document.getElementById("deity-type").value,
-      country: document.getElementById("deity-country").value,
-      region: document.getElementById("deity-region").value,
-      tribe: document.getElementById("deity-tribe").value,
-      image: imageDataUrl,
-      description: document.getElementById("deity-description").value,
-      lore: document.getElementById("deity-lore").value
-    };
-
-    mythsArray.push(newMyth);
-    clearForm();
-    renderMythsCatalogue();
-    
-    // Scroll to new card
-    const newCards = document.querySelectorAll(".myth-card");
-    if (newCards.length > 0) {
-      newCards[newCards.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+  const newId = Math.max(...mythsArray.map(m => m.id), 0) + 1;
+  const newMyth = {
+    id: newId,
+    name: document.getElementById("deity-name").value,
+    type: document.getElementById("deity-type").value,
+    country: document.getElementById("deity-country").value,
+    region: document.getElementById("deity-region").value,
+    tribe: document.getElementById("deity-tribe").value,
+    image: "",
+    description: document.getElementById("deity-description").value,
+    lore: document.getElementById("deity-lore").value
   };
 
-  if (imageFile) {
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      handleImage(event.target.result);
-    };
-    reader.readAsDataURL(imageFile);
-  } else {
-    handleImage("");
+  mythsArray.push(newMyth);
+  clearForm();
+  renderMythsCatalogue();
+  
+  // Scroll to new card
+  const newCards = document.querySelectorAll(".myth-card");
+  if (newCards.length > 0) {
+    newCards[newCards.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
   }
 }
 
