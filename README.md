@@ -171,7 +171,7 @@ The catalog includes the following functionality:
 
 ### Technical Implementation
 
-- **Vanilla HTML, CSS, and JavaScript**: Built entirely without frameworks, demonstrating understanding of core web technologies.
+- **HTML, CSS, and JavaScript**: Built entirely without frameworks, demonstrating understanding of core web technologies.
 - **Data Structures**: Uses JavaScript arrays and objects to store and manage the mythology data.
 - **DOM Manipulation**: Dynamic rendering of catalog entries using JavaScript.
 - **File Handling**: Image upload functionality using the FileReader API to handle local image files.
