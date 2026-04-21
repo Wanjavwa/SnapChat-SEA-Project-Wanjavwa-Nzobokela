@@ -180,7 +180,7 @@ The catalog includes the following functionality:
 
 ## 🌐 Website
 
-<!-- Add your published website URL here -->
+<!-- https://wanjavwa.github.io/SnapChat-SEA-Project-Wanjavwa-Nzobokela/ -->
 
 [Click here to view the live website](#)
 
