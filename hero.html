@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hero — Spirits of the Continent</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:wght@300;400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <section class="hero-wrap">
+
+    <!-- Video Background -->
+    <video class="hero-video-bg" autoplay muted loop playsinline>
+      <source src="assets/background video.mp4" type="video/mp4">
+    </video>
+
+    <!-- Background overlays for consistent styling -->
+    <div class="bg-wash"></div>
+    <div class="bg-abstract"></div>
+    <div class="bg-abstract2"></div>
+
+    <!-- Adinkra watermark SVG -->
+    <svg class="bg-adinkra" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="150" cy="150" r="138" stroke="#c9a84c" stroke-width="0.8"/>
+      <circle cx="150" cy="150" r="108" stroke="#c9a84c" stroke-width="0.5"/>
+      <circle cx="150" cy="150" r="78"  stroke="#c9a84c" stroke-width="0.5"/>
+      <circle cx="150" cy="150" r="48"  stroke="#c9a84c" stroke-width="0.5"/>
+      <circle cx="150" cy="150" r="18"  fill="#c9a84c" opacity="0.3"/>
+      <line x1="12"  y1="150" x2="288" y2="150" stroke="#c9a84c" stroke-width="0.4"/>
+      <line x1="150" y1="12"  x2="150" y2="288" stroke="#c9a84c" stroke-width="0.4"/>
+      <line x1="52"  y1="52"  x2="248" y2="248" stroke="#c9a84c" stroke-width="0.3"/>
+      <line x1="248" y1="52"  x2="52"  y2="248" stroke="#c9a84c" stroke-width="0.3"/>
+      <path d="M150 42 Q192 82 192 150 Q192 218 150 258 Q108 218 108 150 Q108 82 150 42Z" stroke="#c9a84c" stroke-width="0.6" fill="none"/>
+    </svg>
+
+    <div class="bg-vignette"></div>
+    <div class="bg-vignette2"></div>
+    <div class="bg-grid"></div>
+
+    <!-- Nav -->
+    <nav class="hero-nav">
+      <div class="nav-logo">Spirits of the Continent</div>
+      <ul class="nav-links">
+        <li><a href="hero.html">Home</a></li>
+        <li><a href="index.html">Catalogue</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main content -->
+    <div class="hero-content">
+      <div class="hero-tag">
+        <div class="hero-tag-line"></div>
+        <span>A digital museum &nbsp;·&nbsp; Sub-Saharan Africa</span>
+      </div>
+
+      <h1 class="hero-title">
+        Spirits of the
+        <em>Continent</em>
+      </h1>
+
+      <div class="hero-divider">
+        <div class="divider-dot"></div>
+        <div class="divider-line"></div>
+        <div class="divider-dot"></div>
+      </div>
+
+      <p class="hero-subtitle">Sub-Saharan Mythology Catalogue</p>
+
+      <p class="hero-desc">
+        Preserving the deities, tricksters, and mythic beings woven into the fabric of Sub-Saharan African cultures, from the Yoruba pantheon of Nigeria to the ancestral spirits of the Zulu.
+      </p>
+
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="window.location.href='index.html'">
+          Enter the Catalogue
+        </button>
+        <button class="btn-ghost">About this Project</button>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero-scroll">
+      <div class="scroll-track"></div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="hero-bar">
+      <div class="bar-item">
+        <div class="bar-num" id="stat-total">40</div>
+        <div class="bar-label">Entities</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-num">18</div>
+        <div class="bar-label">Countries</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-num">Almost 30</div>
+        <div class="bar-label">Tribes</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-num">4</div>
+        <div class="bar-label">Regions</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ABOUT SECTION (Separate from hero, black background) -->
+  <section class="about-section-dark" id="about">
+    <div class="about-container">
+      <h2 class="about-title-dark">About This Project</h2>
+      <p class="about-text-dark">
+        <strong>Spirits of the Continent</strong> is a digital museum dedicated to preserving and celebrating 
+        the rich mythology of Sub-Saharan Africa. This catalogue features deities, spirits, tricksters, 
+        and legendary beings from across the continent, from the Yoruba pantheon of Nigeria to the 
+        ancestral spirits of the Zulu.
+      </p>
+      <p class="about-text-dark">
+        Our mission is to make African mythology accessible to everyone, honoring the oral traditions 
+        and cultural heritage that have been passed down through generations. Each entry in this 
+        catalogue represents a window into the spiritual beliefs and values of African communities.
+      </p>
+      <p class="about-text-dark">
+        Browse through our collection, learn about different cultures, and discover the fascinating 
+        beings that have shaped the spiritual landscape of Africa for centuries.
+      </p>
+      <a href="#catalogue" class="about-cta-button" onclick="window.location.href='index.html'">Explore the Catalogue →</a>
+    </div>
+  </section>
+
+</body>
+</html>

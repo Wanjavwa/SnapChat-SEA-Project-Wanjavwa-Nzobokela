@@ -1,31 +1,217 @@
 <!doctype html>
 <html>
   <head>
-    <title>LA TV Shows | Home</title>
-    <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Spirits of the Continent | African Mythology Catalogue</title>
+    <meta name="description" content="A catalogue of African mythological figures and deities from across the continent" />
     <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="scripts.js"></script>
   </head>
 
   <body>
-    <header class="main-header">
-      <h1 class="title">LA TV Shows</h1>
+    <!-- HEADER WITH VIDEO BACKGROUND -->
+    <header class="main-header" id="home">
+      <!-- Video Background -->
+      <video class="header-video-bg" autoplay muted loop playsinline>
+        <source src="assets/index background video.mp4" type="video/mp4">
+      </video>
+      <!-- Overlay for consistent styling -->
+      <div class="header-overlay"></div>
+      
+      <!-- Navigation -->
+      <nav class="header-nav">
+        <a href="hero.html" class="nav-link">Home</a>
+      </nav>
+      
+      <h1 class="title">Spirits of the Continent</h1>
     </header>
-    <div id="card-container"></div>
-    <div class="card" style="display: none">
-      <div class="card-content">
-        <h2>TV Show Title</h2>
-        <img src="" alt="TV Show Poster" />
-        <ul>
-          <li>Bullet Point 1</li>
-          <li>Bullet Point 2</li>
-          <li>Bullet Point 3</li>
-        </ul>
+
+    <!-- CATALOGUE SECTION -->
+    <main class="catalogue-section" id="catalogue">
+      
+      <!-- SEARCH & FILTER PANEL -->
+      <div class="filter-panel">
+        
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+          <input 
+            type="text" 
+            id="search-input" 
+            class="search-input" 
+            placeholder="Search by name, country, tribe, or description..."
+          >
+        </div>
+
+        <!-- FILTER CONTROLS -->
+        <div class="filter-controls">
+          
+          <!-- TYPE FILTERS -->
+          <div class="filter-group">
+            <h3 class="filter-label">Filter by Type</h3>
+            <div class="pills-container">
+              <button class="type-pill" data-type="Deity">Deity</button>
+              <button class="type-pill" data-type="Spirit">Spirit</button>
+              <button class="type-pill" data-type="Trickster">Trickster</button>
+              <button class="type-pill" data-type="Monster">Monster</button>
+              <button class="type-pill" data-type="Ancestor">Ancestor</button>
+            </div>
+          </div>
+
+          <!-- REGION FILTERS -->
+          <div class="filter-group">
+            <h3 class="filter-label">Filter by Region</h3>
+            <div class="pills-container">
+              <button class="region-pill" data-region="West Africa">West Africa</button>
+              <button class="region-pill" data-region="East Africa">East Africa</button>
+              <button class="region-pill" data-region="Central Africa">Central Africa</button>
+              <button class="region-pill" data-region="Southern Africa">Southern Africa</button>
+            </div>
+          </div>
+
+          <!-- DROPDOWNS ROW -->
+          <div class="filter-row">
+            <!-- COUNTRY DROPDOWN -->
+            <div class="filter-group">
+              <label for="country-filter" class="filter-label">Filter by Country</label>
+              <select id="country-filter" class="filter-select">
+                <option value="">All Countries</option>
+              </select>
+            </div>
+
+            <!-- TRIBE DROPDOWN -->
+            <div class="filter-group">
+              <label for="tribe-filter" class="filter-label">Filter by Tribe</label>
+              <select id="tribe-filter" class="filter-select">
+                <option value="">All Tribes</option>
+              </select>
+            </div>
+
+            <!-- SORT DROPDOWN -->
+            <div class="filter-group">
+              <label for="sort-select" class="filter-label">Sort By</label>
+              <select id="sort-select" class="filter-select">
+                <option value="a-z">A – Z</option>
+                <option value="z-a">Z – A</option>
+                <option value="region">By Region</option>
+                <option value="type">By Type</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- SECOND ROW: FAVORITES & RESET -->
+          <div class="filter-row">
+            <!-- FAVORITES BUTTON -->
+            <div class="filter-group">
+              <button id="favorites-btn" class="btn-favorites">
+                <span class="favorites-icon">★</span> View Favorites
+                <span id="favorites-count" class="favorites-count">0</span>
+              </button>
+            </div>
+
+            <!-- RESET BUTTON -->
+            <div class="filter-group">
+              <button id="reset-btn" class="btn-reset">Reset All</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MYTHS GRID -->
+      <div id="myths-grid" class="myths-grid">
+        <!-- Cards rendered by JavaScript -->
+      </div>
+    </main>
+
+    <!-- ADD DEITY SECTION -->
+    <section class="add-deity-section">
+      <div class="add-deity-container">
+        <h2 class="section-title">Contribute to the Archive</h2>
+        <p class="section-subtitle">Add a new deity, spirit, or figure to our collection</p>
+        
+        <form id="add-deity-form" class="deity-form">
+          <div class="form-group">
+            <label for="deity-name">Name *</label>
+            <input type="text" id="deity-name" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="deity-type">Type *</label>
+              <select id="deity-type" required>
+                <option value="">Select Type</option>
+                <option value="Deity">Deity</option>
+                <option value="Spirit">Spirit</option>
+                <option value="Trickster">Trickster</option>
+                <option value="Monster">Monster</option>
+                <option value="Ancestor">Ancestor</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="deity-country">Country *</label>
+              <input type="text" id="deity-country" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="deity-region">Region *</label>
+              <select id="deity-region" required>
+                <option value="">Select Region</option>
+                <option value="West Africa">West Africa</option>
+                <option value="East Africa">East Africa</option>
+                <option value="Central Africa">Central Africa</option>
+                <option value="Southern Africa">Southern Africa</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="deity-tribe">Tribe</label>
+              <input type="text" id="deity-tribe">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="deity-image">Image</label>
+            <input type="file" id="deity-image" accept="image/*">
+          </div>
+
+          <div class="form-group">
+            <label for="deity-description">Description *</label>
+            <textarea id="deity-description" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="deity-lore">Extended Lore</label>
+            <textarea id="deity-lore"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Add to Archive</button>
+            <button type="button" id="clear-form-btn" class="btn-clear">Clear Form</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- DETAIL MODAL -->
+    <div id="detail-modal" class="modal">
+      <!-- Content rendered by JavaScript -->
+    </div>
+
+    <!-- EDIT MODAL -->
+    <div id="edit-modal" class="modal">
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div class="modal-body">
+          <form id="edit-deity-form" class="deity-form">
+            <!-- Form content rendered by JavaScript -->
+          </form>
+        </div>
       </div>
     </div>
-    <div class="footer">
-      <button onclick="quoteAlert()">Get A Quote!</button>
-      <button onclick="removeLastCard()">Remove A Card!</button>
-    </div>
+
+    <script type="text/javascript" src="scripts.js"></script>
   </body>
 </html>
